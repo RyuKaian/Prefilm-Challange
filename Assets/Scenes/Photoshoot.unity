@@ -303,7 +303,7 @@ GameObject:
   - component: {fileID: 2076737948}
   - component: {fileID: 2076737949}
   m_Layer: 0
-  m_Name: Character Factory
+  m_Name: Factory
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -338,3 +338,5 @@ MonoBehaviour:
   Models:
   - {fileID: 9152254099045011512, guid: b2696ae2d3118d447a1bfc176c7c511d, type: 3}
   - {fileID: 1630894236622704595, guid: c59df4af042a2fb479b3c9a1d6e9183b, type: 3}
+  Lights:
+  - {fileID: 8553042703767475676, guid: 344fa7d5e70ae0e49924a19daec12ae7, type: 3}

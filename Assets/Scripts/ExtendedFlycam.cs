@@ -13,27 +13,33 @@ public class ExtendedFlycam : MonoBehaviour
 
 	void Update()
 	{
-        if (Input.GetMouseButtonDown(1))
-			Cursor.lockState = CursorLockMode.Locked;
-
-		if (Input.GetMouseButtonUp(1))
+		if (Input.GetKeyDown(KeyCode.LeftAlt) || Input.GetMouseButtonUp(1))
 			Cursor.lockState = CursorLockMode.None;
 
-		if (Input.GetMouseButton(1))
+		if (Input.GetMouseButton(1) && Input.GetKeyUp(KeyCode.LeftAlt))
+			Cursor.lockState = CursorLockMode.Locked;
+
+		if (!Input.GetKey(KeyCode.LeftAlt))
 		{
-			rotationX += Input.GetAxis("Mouse X") * cameraSensitivity * Time.deltaTime;
-			rotationY += Input.GetAxis("Mouse Y") * cameraSensitivity * Time.deltaTime;
-			rotationY = Mathf.Clamp(rotationY, -90, 90);
+			if (Input.GetMouseButtonDown(1))
+				Cursor.lockState = CursorLockMode.Locked;
 
-			transform.localRotation = Quaternion.AngleAxis(rotationX, Vector3.up);
-			transform.localRotation *= Quaternion.AngleAxis(rotationY, Vector3.left);
+			if (Input.GetMouseButton(1))
+			{
+				rotationX += Input.GetAxis("Mouse X") * cameraSensitivity * Time.deltaTime;
+				rotationY += Input.GetAxis("Mouse Y") * cameraSensitivity * Time.deltaTime;
+				rotationY = Mathf.Clamp(rotationY, -90, 90);
 
-			transform.position += transform.forward * MoveSpeed * Input.GetAxis("Vertical") * Time.deltaTime;
-			transform.position += transform.right * MoveSpeed * Input.GetAxis("Horizontal") * Time.deltaTime;
+				transform.localRotation = Quaternion.AngleAxis(rotationX, Vector3.up);
+				transform.localRotation *= Quaternion.AngleAxis(rotationY, Vector3.left);
+
+				transform.position += transform.forward * MoveSpeed * Input.GetAxis("Vertical") * Time.deltaTime;
+				transform.position += transform.right * MoveSpeed * Input.GetAxis("Horizontal") * Time.deltaTime;
 
 
-			if (Input.GetKey(KeyCode.E)) { transform.position += transform.up * climbSpeed * Time.deltaTime; }
-			if (Input.GetKey(KeyCode.Q)) { transform.position -= transform.up * climbSpeed * Time.deltaTime; }
+				if (Input.GetKey(KeyCode.E)) { transform.position += transform.up * climbSpeed * Time.deltaTime; }
+				if (Input.GetKey(KeyCode.Q)) { transform.position -= transform.up * climbSpeed * Time.deltaTime; }
+			}
 		}
 	}
 }
