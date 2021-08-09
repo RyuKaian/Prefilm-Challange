@@ -41,12 +41,12 @@ public class Factory : MonoBehaviour
     {
         if (!holdingObject)
         {
-            if (Input.GetKeyDown(KeyCode.Alpha1))
-                CreateJames();
-            else if (Input.GetKeyDown(KeyCode.Alpha2))
-                CreateMegan();
-            else if (Input.GetKeyDown(KeyCode.Alpha3))
-                CreateLightbox();
+            //if (Input.GetKeyDown(KeyCode.Alpha1))
+            //    CreateJames();
+            //else if (Input.GetKeyDown(KeyCode.Alpha2))
+            //    CreateMegan();
+            //else if (Input.GetKeyDown(KeyCode.Alpha3))
+            //    CreateLightbox();
         } else
         {
             Plane plane = new Plane(Vector3.up, 0);

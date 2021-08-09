@@ -1,14 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
 
 public class Tooltip : MonoBehaviour
 {
     public GameObject currentActive;
-    public Image Animations;
-    public Image LightControl;
+    public CanvasRenderer Animations;
+    public CanvasRenderer LightControl;
     public TextMeshProUGUI XPosition;
     public TextMeshProUGUI YPosition;
     public TextMeshProUGUI ZPosition;
@@ -87,5 +88,11 @@ public class Tooltip : MonoBehaviour
     {
         currentActive.GetComponentInChildren<Light>().enabled = true;
         currentActive.GetComponentInChildren<Light>().intensity = intensity;
+    }
+    public void SetColor()
+    {
+        Color color = EventSystem.current.currentSelectedGameObject.GetComponent<Image>().color;
+        currentActive.GetComponentInChildren<Light>().color = color;
+        currentActive.GetComponentInChildren<Light>().enabled = true;
     }
 }
