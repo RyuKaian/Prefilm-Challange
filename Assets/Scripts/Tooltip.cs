@@ -7,16 +7,32 @@ using TMPro;
 public class Tooltip : MonoBehaviour
 {
     public GameObject currentActive;
+    public Image Animations;
+    public Image LightControl;
     public TextMeshProUGUI XPosition;
     public TextMeshProUGUI YPosition;
     public TextMeshProUGUI ZPosition;
     public Slider RotationSlider;
+    public Slider IntensitySlider;
 
     public void SetActiveGameObject(GameObject activeobj)
     {
         currentActive = activeobj;
         if (activeobj)
+        {
             SetInitialRotation();
+            if (activeobj.CompareTag("Character"))
+            {
+                Animations.gameObject.SetActive(true);
+                LightControl.gameObject.SetActive(false);
+            }
+            else if (activeobj.CompareTag("Environment"))
+            {
+                SetInitialIntensity();
+                Animations.gameObject.SetActive(false);
+                LightControl.gameObject.SetActive(true);
+            }
+        }
     }
 
     private void Update()
@@ -56,5 +72,20 @@ public class Tooltip : MonoBehaviour
     public void LaughingAnim()
     {
         currentActive.GetComponent<CharacterAnimation>().Laughing();
+    }
+    public void ToggleLight()
+    {
+        Light temp = currentActive.GetComponentInChildren<Light>();
+        temp.enabled = !temp.enabled;
+    }
+
+    public void SetInitialIntensity()
+    {
+        IntensitySlider.value = currentActive.GetComponentInChildren<Light>().intensity;
+    }
+    public void SetIntensityObj(float intensity)
+    {
+        currentActive.GetComponentInChildren<Light>().enabled = true;
+        currentActive.GetComponentInChildren<Light>().intensity = intensity;
     }
 }
