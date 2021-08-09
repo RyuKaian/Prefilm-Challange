@@ -4,7 +4,7 @@ using System.Collections;
 public class ExtendedFlycam : MonoBehaviour
 {
 
-	public float cameraSensitivity = 90;
+	public float cameraSensitivity = 2000;
 	public float climbSpeed = 4;
 	public float MoveSpeed = 10;
 

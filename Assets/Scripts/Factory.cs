@@ -7,24 +7,33 @@ public class Factory : MonoBehaviour
     public GameObject[] Models;
     public GameObject[] Lights;
 
-    private GameObject currentObject;
-    private bool holdingObject = false;
+    private static GameObject currentObject;
+    private static bool holdingObject = false;
 
     public void CreateJames()
     {
         currentObject = Instantiate(Models[0], transform);
+        TooltipSystem.ShowSelected(currentObject);
         holdingObject = true;
     }
 
     public void CreateMegan()
     {
         currentObject = Instantiate(Models[1], transform);
+        TooltipSystem.ShowSelected(currentObject);
         holdingObject = true;
     }
 
     public void CreateLightbox()
     {
         currentObject = Instantiate(Lights[0], transform);
+        TooltipSystem.ShowSelected(currentObject);
+        holdingObject = true;
+    }
+
+    public static void MoveObject(GameObject obj)
+    {
+        currentObject = obj;
         holdingObject = true;
     }
 
@@ -43,14 +52,22 @@ public class Factory : MonoBehaviour
             Plane plane = new Plane(Vector3.up, 0);
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (plane.Raycast(ray, out float distance))
-                currentObject.transform.position = ray.GetPoint(distance);
+            {
+                Vector3 temp = ray.GetPoint(distance);
+                temp.x = Mathf.Clamp(temp.x, -10, 10);
+                temp.z = Mathf.Clamp(temp.z, -10, 10);
+                currentObject.transform.position = temp;
+            }
 
             if (Input.GetMouseButtonDown(0))
+            {
                 holdingObject = false;
+            }
 
             if (Input.GetKeyDown(KeyCode.Escape) || Input.GetMouseButtonDown(1))
             {
                 Destroy(currentObject);
+                TooltipSystem.Hide();
                 holdingObject = false;
             }
         }
